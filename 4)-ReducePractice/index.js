@@ -250,3 +250,39 @@ const genrateReportOne = (data) => {
 };
 
 console.log("Report One :", genrateReportOne(users));
+
+
+const getCityWithHighestAvg = (data) => {
+  const cityData = data.reduce((acc, curr) => {
+    const c = curr.city;
+    if (!acc[c]) {
+      acc[c] = {
+        total: 0,
+        count: 0,
+      };
+    }
+
+    acc[c].total += curr.salary;
+    acc[c].count += 1;
+
+    return acc;
+  }, {});
+
+  let maxAvg = null;
+  let maxCity = null;
+
+  for (const city in cityData) {
+    const { total, count } = cityData[city];
+    const avg = total / count;
+
+    if (avg > maxAvg) {
+      maxAvg = avg;
+      maxCity = city;
+    }
+  }
+
+  return maxCity;
+};
+
+console.log("city with highest salary avg :", getCityWithHighestAvg(users));
+
